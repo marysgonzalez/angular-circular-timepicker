@@ -17,14 +17,15 @@ app.directive('circulartimepicker',[function(){
     replace: true,
     scope:{
       model: '=',
+      name: '=',
       format: '='
     },
     template: '<div class="datetimepicker">'
             +   '<div class="datetimepicker-modal" ng-click="setState(false)" ng-if="state && config.modal"  style="background-color:{{config.backgroundColor}}"></div>'
             +   '<div ng-click="setState(false)" class="datetimepicker-close" style="color:{{config.color}}" ng-if="state && config.modal">&#10006;</div>'
-            +   '<input type="hidden" ng-model="model" />'
-            +   '<button class="datetimepicker-toggle" ng-click="state=!state">&#128197;</button>'
-            +   '<div class="datetimepicker-display">{{display}}</div>'
+            +   '<input  name="{{name}}" type="hidden" ng-model="model" />'
+            // +   '<button class="datetimepicker-toggle" ng-click="state=!state">&#128197;</button>'
+            +   '<div class="datetimepicker-display" ng-click="state=!state">{{display}}</div>'
             +   '<div ng-if="state" class="datetimepicker-content" ng-class="{\'datetimepicker-absolute\':config.modal}">'
             +     '<div class="datetimepicker-tabs">'
             +       '<div class="datetimepicker-tab datetimepicker-tab-date" ng-class="{\'active\':tab==\'date\'}" ng-click="setTab(\'date\')"><span>Date</span></div>'
@@ -92,7 +93,7 @@ app.directive('circulartimepicker',[function(){
         scope.meridian = m.format('A');
         scope.hour  = scope.meridian == 'PM' ? m.hour() - 12: m.hour();
         if(scope.hour==0) scope.hour = 12;
-        scope.datePreview = m.format('YYYY-MM-DD');
+        scope.datePreview = m.format('DD-MM-YYYY');
         scope.timePreview = m.format('hh:mm A');
         scope.displayMonth = scope.months[m.month()];
         scope.displayYear = m.format('YYYY');
